@@ -1,0 +1,123 @@
+{
+  "name": "klajdiavdiaj6-mfe",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "klajdiavdiaj6-mfe",
+  "sourceRoot": "apps/klajdiavdiaj6-mfe/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/klajdiavdiaj6-mfe",
+        "index": "apps/klajdiavdiaj6-mfe/src/index.html",
+        "main": "apps/klajdiavdiaj6-mfe/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/klajdiavdiaj6-mfe/tsconfig.app.json",
+        "assets": [
+          "apps/klajdiavdiaj6-mfe/src/favicon.ico",
+          "apps/klajdiavdiaj6-mfe/src/assets"
+        ],
+        "styles": [
+          "apps/klajdiavdiaj6-mfe/src/styles.scss"
+        ],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/klajdiavdiaj6-mfe/webpack.config.js"
+        },
+        "commonChunk": false
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/klajdiavdiaj6-mfe/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:webpack-dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "klajdiavdiaj6-mfe:build:production"
+        },
+        "development": {
+          "browserTarget": "klajdiavdiaj6-mfe:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4200,
+        "publicHost": "http://localhost:4200"
+      }
+    },
+    "extract-i18n": {
+      "executor": "ngx-build-plus:extract-i18n",
+      "options": {
+        "browserTarget": "klajdiavdiaj6-mfe:build",
+        "extraWebpackConfig": "apps/klajdiavdiaj6-mfe/webpack.config.js"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/klajdiavdiaj6-mfe/**/*.ts",
+          "apps/klajdiavdiaj6-mfe/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "apps/klajdiavdiaj6-mfe/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "klajdiavdiaj6-mfe:build"
+      }
+    }
+  }
+}
